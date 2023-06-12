@@ -10,10 +10,6 @@ receivers:
     - type: regex_parser
       id: parse_file
       regex: '^(?P<level_short>[A-Z]),\s+\[(?P<timestamp>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}).*?\]\s+(?P<level>[A-Z]+) -- :(?P<content>.*)$'
-      timestamp:
-        parse_from: attributes.timestamp
-        layout_type: strptime
-        layout: '%Y-%m-%dT%H:%M:%S.%f'
   otlp:
     protocols:
       grpc:
