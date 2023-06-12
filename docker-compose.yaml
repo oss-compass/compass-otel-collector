@@ -1,0 +1,21 @@
+version: "2.4"
+
+services:
+  otel-collector:
+    image: signoz/signoz-otel-collector:${OTELCOL_TAG:-0.76.1}
+    command: ["--config=/etc/otel-collector-config.yaml", "--feature-gates=-pkg.translator.prometheus.NormalizeName"]
+    user: root
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+      - /home/git/compass-web-org/log/production.log:/tmp/compass/compass-web-org/production.log
+      - /home/git/compass-web-org/log/sneakers.log:/tmp/compass/compass-web-org/sneakers.log
+      - /home/git/compass-web-service/log/production.log:/tmp/compass/compass-web-service/production.log
+      - /home/git/compass-web-service/log/sneakers.log:/tmp/compass/compass-web-service/sneakers.log
+    environment:
+      - OTEL_RESOURCE_ATTRIBUTES=host.name=signoz-host,os.type=linux
+      - DOCKER_MULTI_NODE_CLUSTER=false
+      - LOW_CARDINAL_EXCEPTION_GROUPING=false
+    ports:
+      - "4317:4317"     # OTLP gRPC receiver
+      - "4318:4318"     # OTLP HTTP receiver
+    restart: on-failure
