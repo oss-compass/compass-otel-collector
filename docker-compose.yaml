@@ -7,10 +7,8 @@ services:
     user: root
     volumes:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
-      - /home/git/compass-web-org/log/production.log:/tmp/compass/compass-web-org/production.log
-      - /home/git/compass-web-org/log/sneakers.log:/tmp/compass/compass-web-org/sneakers.log
-      - /home/git/compass-web-service/log/production.log:/tmp/compass/compass-web-service/production.log
-      - /home/git/compass-web-service/log/sneakers.log:/tmp/compass/compass-web-service/sneakers.log
+      - /home/git/compass-web-org/log:/tmp/compass/compass-web-org
+      - /home/git/compass-web-service/log:/tmp/compass/compass-web-service
     environment:
       - OTEL_RESOURCE_ATTRIBUTES=host.name=signoz-host,os.type=linux
       - DOCKER_MULTI_NODE_CLUSTER=false
