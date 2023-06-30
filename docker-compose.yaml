@@ -2,7 +2,7 @@ version: "2.4"
 
 services:
   otel-collector:
-    image: signoz/signoz-otel-collector:${OTELCOL_TAG:-0.76.1}
+    image: signoz/signoz-otel-collector:${OTELCOL_TAG:-0.79.1}
     command: ["--config=/etc/otel-collector-config.yaml", "--feature-gates=-pkg.translator.prometheus.NormalizeName"]
     user: root
     volumes:
